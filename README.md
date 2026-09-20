@@ -19,6 +19,25 @@ Open [the notebook](portable_neural_rendering_colab.ipynb) in Google Colab and s
 
 No NVIDIA DLLs or model weights are included or downloaded by this release. A supplied DLL is parsed for model extraction, not executed. Its model resource must match the pinned implementation. Existing logical weights must be compatible with that implementation. The source-code license does not grant rights to NVIDIA models or other people's media.
 
+## Getting the model files
+
+Start with [MLX-DLSS's weight preparation instructions](https://github.com/iamwavecut/MLX-DLSS#weights). This is an extraction/setup guide, **not a DLL download link**; upstream also requires you to supply your own NVIDIA library.
+
+Choose one of these options:
+
+- **Compatible DLL:** upload your own `nvngx_dlssnr.dll` through Colab's Files sidebar. Set `DLSSNR_DLL_PATH` in Cell 1 to its uploaded path, usually `/content/nvngx_dlssnr.dll`. Cell 3 extracts and decodes the model automatically; it does not execute the Windows DLL.
+- **Already extracted weights:** upload compatible `dlssnr-weights-logical.safetensors` and set `WEIGHTS_PATH` in Cell 1 to that file's path. If this file exists, the notebook uses it instead of extracting a DLL. Packed weights and Metal `.dlssmodel` files are not substitutes for the logical PyTorch weights.
+
+The pinned implementation targets the neural-rendering resource associated with `nvngx_dlssnr.dll` **310.8.0.0**. A matching filename or version label alone is not sufficient: Cell 3 checks the extracted resource against this expected SHA-256:
+
+```text
+836f445d06ecd2e59bb9f17b84b91c143396fd76ccda1c9dc7fe81d5edd548f4
+```
+
+That is the **embedded model-resource hash**, not the whole DLL hash. Other DLL builds or newer model weights may be incompatible. Do not bypass a resource mismatch; existing logical weights must also originate from the compatible model. `nvngx_dlss.dll` (Super Resolution) and DLSS frame-generation libraries are different files and cannot replace `nvngx_dlssnr.dll` here.
+
+Review the applicable terms and your rights to use/extract the model, then set `ACCEPT_MODEL_TERMS=True` in Cell 1. This setting records your acknowledgement; it does not grant a license. The notebook does not automatically download model files, and this repository does not host or authorize redistribution of NVIDIA binaries or weights. Colab's temporary files may disappear when the runtime resets.
+
 ## What this repository adds
 
 - A self-contained Colab notebook with readable sibling Python modules.
