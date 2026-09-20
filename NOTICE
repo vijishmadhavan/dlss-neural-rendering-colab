@@ -1,0 +1,15 @@
+Portable Neural Rendering — Colab
+Copyright 2026 Vijish Madhavan and contributors
+
+Based on and adapting MLX-DLSS:
+Copyright 2026 MLX-DLSS contributors
+https://github.com/iamwavecut/MLX-DLSS
+Pinned commit: 0ca2deab092fe6f3e331bf4f616271dbc64521d0
+
+Changes include CUDA-resident temporal processing, Triton arithmetic kernels,
+batched execution, CUDA graph replay, diagnostics, and Colab packaging.
+The upstream NOTICE is preserved in UPSTREAM_NOTICE.
+
+NVIDIA model weights and binaries are not included. Their terms are not
+replaced by this repository's source-code license. NVIDIA and DLSS names
+identify the underlying technology; no affiliation or endorsement is claimed.
